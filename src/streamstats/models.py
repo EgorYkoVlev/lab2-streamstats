@@ -11,7 +11,7 @@ class Level(str, Enum):
     CRITICAL = "CRITICAL"
 
 
-@dataclass(frozen=True)
+@dataclass
 class Event:
     timestamp: datetime
     level: Level

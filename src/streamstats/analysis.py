@@ -53,10 +53,6 @@ def analyze(events: Iterable[Event]) -> dict:
         "levels": level_counts,
         "sources": source_counts,
         "top_error_sources": top_error_sources,
-        "first_timestamp": (
-            first_timestamp.isoformat() if first_timestamp is not None else None
-        ),
-        "last_timestamp": (
-            last_timestamp.isoformat() if last_timestamp is not None else None
-        ),
+        "first_timestamp": first_timestamp.isoformat(),
+        "last_timestamp": last_timestamp.isoformat()
     }
