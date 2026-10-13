@@ -1,0 +1,4 @@
+timestamp,level,source,message
+2026-10-10T10:01:00,WARNING,database,Медленный запрос
+2026-10-10T10:02:00,ERROR,server,Ошибка подключения
+2026-10-10T10:03:00,CRITICAL,database,База данных недоступна
