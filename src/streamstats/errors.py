@@ -4,7 +4,7 @@ class StreamStatsError(Exception):
 class InvalidEventError(StreamStatsError):
     pass
 
-class InvalidHeaderError(StreamStatsError):
+class MissingHeaderError(StreamStatsError):
     pass
 
 class CLIConfigurationError(StreamStatsError):

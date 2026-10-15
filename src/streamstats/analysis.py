@@ -2,6 +2,7 @@ from _collections_abc import Iterable
 
 from streamstats.models import Event, Level
 
+
 def analyze(events: Iterable[Event]) -> dict:
     event_counts = 0
 
@@ -53,6 +54,10 @@ def analyze(events: Iterable[Event]) -> dict:
         "levels": level_counts,
         "sources": source_counts,
         "top_error_sources": top_error_sources,
-        "first_timestamp": first_timestamp.isoformat(),
-        "last_timestamp": last_timestamp.isoformat()
+        "first_timestamp": (
+            first_timestamp.isoformat() if first_timestamp else None
+        ),
+        "last_timestamp": (
+            last_timestamp.isoformat() if last_timestamp else None
+        )
     }

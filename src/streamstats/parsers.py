@@ -1,13 +1,19 @@
 import csv
 import json
 import logging
+from collections.abc import Iterator
 from datetime import datetime
 from pathlib import Path
-from collections.abc import Iterator
 
+from streamstats.errors import (
+    InvalidEventError,
+    InvalidLevelError,
+    InvalidTimestampError,
+    MissingHeaderError,
+    MissingRequiredFieldError,
+    UnsupportedFormatError,
+)
 from streamstats.models import Event, Level
-from streamstats.errors import InvalidEventError, InvalidTimestampError, InvalidHeaderError, UnsupportedFormatError, \
-    InvalidLevelError, MissingRequiredFieldError
 
 
 def create_event(data: dict, file_path: Path, line_number: int) -> Event:
@@ -44,8 +50,6 @@ def create_event(data: dict, file_path: Path, line_number: int) -> Event:
         message=data["message"],
     )
 
-
-
 def parse_csv(
     file_path: Path,
     skipped_lines: list[int],
@@ -65,7 +69,7 @@ def parse_csv(
                     )
 
         elif reader.fieldnames is not None:
-            raise InvalidHeaderError(f"{file_path}: отсутствует заголовок")
+            raise MissingHeaderError(f"{file_path}: отсутствует заголовок")
 
         for line_number, row in enumerate(reader, start=2):
             try:
@@ -81,9 +85,6 @@ def parse_csv(
                 continue
 
             yield event
-
-
-
 
 def parse_jsonl(
     file_path: Path,
