@@ -10,7 +10,10 @@ from streamstats.parsers import parse_csv, parse_jsonl
 
 
 def parse_CLI() -> argparse.ArgumentParser:
-
+    """
+    Создания парсера и определение
+    аргументов командной строки
+    """
     parser = argparse.ArgumentParser(
         prog="streamstats",
         description="Потоковый анализатор файлов"
@@ -59,9 +62,16 @@ def json_report(report: dict, out_file: Path) -> None:
         file.write("\n")
 
 def main() -> int:
+    """
+    Главная функция, описывающая
+    вход в программу
+    """
+    # Создание парсера
     parser = parse_CLI()
     args = parser.parse_args()
 
+    # Определение функции в зависимости от
+    # передаваемого аргумента
     if args.format == "jsonl":
         parse_file_type = parse_jsonl
     else:
@@ -72,12 +82,13 @@ def main() -> int:
 
         file_paths = [Path(file_path) for file_path in args.input]
 
+        # Проверка на существование входных файлов
         for path in file_paths:
             if not path.is_file():
                 raise StreamStatsError(
                     f"входной файл не найден: {path}"
                 )
-
+        # Создание единого итератора из нескольких
         events = chain.from_iterable(
             parse_file_type(
                 file_path,
@@ -86,16 +97,15 @@ def main() -> int:
             )
             for file_path in file_paths
         )
-
+        # Создание отчёта
         report = analyze(events)
-
+        # Проверка на наличие пропущенных строк
         if skipped_lines_count[0] != 0:
             report["skipped_lines"] = skipped_lines_count[0]
-
+        # Запись отчёта в JSON-файл
         json_report(report, Path(args.output))
 
     except StreamStatsError as error:
-
         print(f"Ошибка: {error}", file=sys.stderr)
 
         return 2

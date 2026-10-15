@@ -4,8 +4,13 @@ from streamstats.models import Event, Level
 
 
 def analyze(events: Iterable[Event]) -> dict:
+    """
+    Функция анализа каждого события,
+    создающая отчёт
+    """
+    # Общее число событий
     event_counts = 0
-
+    # Количество событий каждого уровня
     level_counts = {
         "DEBUG": 0,
         "INFO": 0,
@@ -13,11 +18,14 @@ def analyze(events: Iterable[Event]) -> dict:
         "ERROR": 0,
         "CRITICAL": 0
     }
-
+    # Количество событий каждого источника
     source_counts = {}
+    # Количество событий каждого
+    # источника ошибок уровня ERROR/CRITICAL
     source_error_critical_counts = {}
-
+    # Первая временная метка
     first_timestamp = None
+    # Последняя временная метка
     last_timestamp = None
 
     for event in events:
@@ -35,12 +43,12 @@ def analyze(events: Iterable[Event]) -> dict:
 
         if last_timestamp is None or event.timestamp > last_timestamp:
             last_timestamp = event.timestamp
-
+    # top-5 источников ошибок уровня ERROR/CRITICAL
     top_sources_by_errors = sorted(
         source_error_critical_counts.items(),
         key=lambda item: [-item[1], item[0]],
     )[:5]
-
+    # Список top-5 источников ошибок уровня ERROR/CRITICAL
     top_error_sources = []
 
     for source, count in top_sources_by_errors:
@@ -48,7 +56,7 @@ def analyze(events: Iterable[Event]) -> dict:
             "source": source,
             "count": count,
         })
-
+    # Формирование отчёта
     return {
         "total_events": event_counts,
         "levels": level_counts,

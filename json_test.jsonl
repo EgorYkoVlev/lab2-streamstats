@@ -1,4 +1,0 @@
-{"timestamp":"2026-10-10T10:00:00","level":"INFO","source":"server","message":"Сервер запущен"}
-{"timestamp":"2026-10-10T10:01:00","level":"WARNING","source":"database","message":"Медленный запрос"}
-{"timestamp":"2026-10-10T10:02:00","level":"ERROR","source":"server","message":"Ошибка подключения"}
-{"timestamp":"2026-10-10T10:03:00","level":"CRITICAL","source":"database","message":"База данных недоступна"}

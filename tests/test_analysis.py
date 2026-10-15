@@ -6,6 +6,9 @@ from streamstats.parsers import parse_csv, parse_jsonl
 
 
 def test_several_csv_files(tmp_path):
+    """
+    Тест агрегации нескольких файлов
+    """
     first_file = tmp_path / "first.csv"
     second_file = tmp_path / "second.csv"
 
@@ -39,6 +42,10 @@ def test_several_csv_files(tmp_path):
 
 
 def test_csv_and_jsonl_produce_same_statistics(tmp_path):
+    """
+    Тест идентичности отчёта эквивалентных
+    csv- и json-файлов
+    """
     csv_file = tmp_path / "events.csv"
     jsonl_file = tmp_path / "events.jsonl"
 

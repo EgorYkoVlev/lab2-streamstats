@@ -2,7 +2,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 
-
+# Определение набора именованных констант,
+# описывающих уровень события
 class Level(str, Enum):
     DEBUG = "DEBUG"
     INFO = "INFO"
@@ -10,7 +11,7 @@ class Level(str, Enum):
     ERROR = "ERROR"
     CRITICAL = "CRITICAL"
 
-
+# Определение модели события
 @dataclass
 class Event:
     timestamp: datetime

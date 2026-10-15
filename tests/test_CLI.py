@@ -3,11 +3,13 @@ import subprocess
 import sys
 from pathlib import Path
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 def run_cli(*arguments):
+    """
+    Функция запуска интерфейса командной строки
+    """
     return subprocess.run(
         [
             sys.executable,
@@ -25,6 +27,9 @@ def run_cli(*arguments):
 
 
 def test_cli_creates_json_report(tmp_path):
+    """
+    Позитивный тест корректной работы CLI
+    """
     input_file = tmp_path / "events.csv"
     output_file = tmp_path / "report.json"
 
@@ -56,6 +61,9 @@ def test_cli_creates_json_report(tmp_path):
 
 
 def test_cli_returns_code_2_for_invalid_event(tmp_path):
+    """
+    Негативный тест корректной работы CLI
+    """
     input_file = tmp_path / "broken.jsonl"
     output_file = tmp_path / "report.json"
 
@@ -77,6 +85,9 @@ def test_cli_returns_code_2_for_invalid_event(tmp_path):
 
 
 def test_cli_skips_invalid_event(tmp_path):
+    """
+    Позитивный тест корректной работы CLI с флагом --skip-invalid
+    """
     input_file = tmp_path / "mixed.jsonl"
     output_file = tmp_path / "report.json"
 

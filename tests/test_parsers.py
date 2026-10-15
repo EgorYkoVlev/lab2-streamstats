@@ -12,6 +12,9 @@ from streamstats.parsers import parse_csv, parse_jsonl
 
 
 def test_parse_csv(tmp_path):
+    """
+    Позитивный тест csv-парсера
+    """
     file_path = tmp_path / "test.csv"
 
     file_path.write_text(
@@ -40,6 +43,9 @@ def test_parse_csv(tmp_path):
 
 
 def test_parse_jsonl(tmp_path):
+    """
+    Позитивный тест json-парсера
+    """
     file_path = tmp_path / "test.jsonl"
 
     file_path.write_text(
@@ -70,6 +76,9 @@ def test_parse_jsonl(tmp_path):
 
 
 def test_empty_csv_file(tmp_path):
+    """
+    Позитивный тест пустого csv-файла
+    """
     file_path = tmp_path / "empty.csv"
     file_path.write_text("", encoding="utf-8")
 
@@ -79,6 +88,9 @@ def test_empty_csv_file(tmp_path):
 
 
 def test_empty_jsonl_file(tmp_path):
+    """
+    Позитивный тест пустого json-файла
+    """
     file_path = tmp_path / "empty.jsonl"
     file_path.write_text("", encoding="utf-8")
 
@@ -88,6 +100,9 @@ def test_empty_jsonl_file(tmp_path):
 
 
 def test_parse_csv_invalid_1(tmp_path):
+    """
+    Негативный тест csv-парсера №1
+    """
     file_path = tmp_path / "broken.csv"
 
     file_path.write_text(
@@ -101,6 +116,9 @@ def test_parse_csv_invalid_1(tmp_path):
         list(parse_csv(file_path, [0], False))
 
 def test_parse_csv_invalid_2(tmp_path):
+    """
+    Негативный тест csv-парсера №2
+    """
     file_path = tmp_path / "broken.csv"
 
     file_path.write_text(
@@ -114,6 +132,10 @@ def test_parse_csv_invalid_2(tmp_path):
         list(parse_csv(file_path, [0], False))
 
 def test_parse_csv_skip_invalid(tmp_path):
+    """
+    Позитивный тест csv-парсера
+    с флагом --skip-invalid
+    """
     file_path = tmp_path / "broken.csv"
 
     file_path.write_text(
@@ -146,6 +168,10 @@ def test_parse_csv_skip_invalid(tmp_path):
     assert skipped_lines[0] == 1
 
 def test_missing_header_csv(tmp_path):
+    """
+    Негативный тест csv-парсера
+    с отсутствующим заголовком в файле
+    """
     file_path = tmp_path / "broken.csv"
 
     file_path.write_text(
@@ -157,6 +183,9 @@ def test_missing_header_csv(tmp_path):
         list(parse_csv(file_path, [0], False))
 
 def test_parse_jsonl_invalid(tmp_path):
+    """
+    Негативный тест json-парсера
+    """
     file_path = tmp_path / "broken.jsonl"
 
     file_path.write_text(
@@ -174,6 +203,10 @@ def test_parse_jsonl_invalid(tmp_path):
 
 
 def test_parse_jsonl_skip_invalid(tmp_path):
+    """
+    Позитивный тест json-парсера
+    с флагом ---skip-invalid
+    """
     file_path = tmp_path / "broken.jsonl"
 
     file_path.write_text(
@@ -202,6 +235,9 @@ def test_parse_jsonl_skip_invalid(tmp_path):
 
 
 def test_unicode(tmp_path):
+    """
+    Тест Unicode
+    """
     file_path = tmp_path / "unicode.jsonl"
 
     file_path.write_text(
